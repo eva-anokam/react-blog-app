@@ -11,7 +11,7 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "100%",
-    maxWidth: "600px"
+    maxWidth: "600px",
   },
 };
 
@@ -47,5 +47,3 @@ export default function ModalElement(props) {
     </div>
   );
 }
-
-

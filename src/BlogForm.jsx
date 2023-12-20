@@ -1,12 +1,6 @@
 import React from "react";
 
 export default function BlogForm(props) {
-     const [selectedFile, setSelectedFile] = React.useState(null);
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setSelectedFile(file);
-    };
   return (
     <form className="blogForm" onSubmit={props.addBlog}>
       <label htmlFor="postTitle">

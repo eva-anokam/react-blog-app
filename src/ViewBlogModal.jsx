@@ -1,6 +1,5 @@
 import React from "react";
 import Modal from "react-modal";
-import { getTime } from "./GenerateTime";
 
 const customStyles = {
   content: {
@@ -17,69 +16,12 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 export default function ViewBlogModal(props) {
-    const [edit, setEdit] = React.useState(null);
-    const [initialBlog, setInitialBlog] = React.useState({
-      postTitle: "",
-      postCategory: "",
-      featuredImage: "",
-      postDescription: "",
-      time: getTime(),
-    });
 
-    const [updatedBlog, setUpdatedBlog] = React.useState({
-      postTitle: "",
-      postCategory: "",
-      featuredImage: "",
-      postDescription: "",
-      time: getTime(),
+  function deleteBlog(index) {
+    props.setBlogs((currBlogs) => {
+      return currBlogs.filter((_, currIndex) => currIndex !== index);
     });
-  
-function toEdit(index) {
-    const BlogToEdit = props.blogs[props.index];
-  setUpdatedBlog({ ...BlogToEdit });
-  setEdit(props.index);
-  setInitialBlog({ ...BlogToEdit });
   }
-  
-function updateBlog(event) {
-  event.preventDefault();
-  setUpdatedBlog((prevData) => {
-    return {
-      ...prevData,
-      [event.target.name]: event.target.value,
-    };
-  });
-}
-
-function cancelEdit() {
-  setUpdatedBlog((prevBlog) => ({
-    ...prevBlog,
-    ...initialBlog,
-  }));
-  setEdit(null);
-}
-
-function deleteBlog(index) {
-  props.setBlogs((currBlogs) => {
-    return currBlogs.filter((_, currIndex) => currIndex !== index);
-  });
-}
-
-function updateBlogList(event, index) {
-  event.preventDefault();
-  props.setBlogs((prevBlogs) => {
-    const newBlogList = prevBlogs.map((eachBlog, BlogIndex) => {
-      if (BlogIndex === index) {
-        return {
-          ...updatedBlog,
-        };
-      }
-      return eachBlog;
-    });
-    return newBlogList;
-  });
-  setEdit(null);
-}
 
   return (
     <div>
@@ -115,50 +57,8 @@ function updateBlogList(event, index) {
           <div className="view-post-btn-container">
             <button
               onClick={() => {
-                toEdit(props.index);
-                return (
-                  <form action="" className="editForm">
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Edit Blog name"
-                      onChange={updateBlog}
-                      value={updatedBlog.name}
-                    />
-                    <input
-                      type="number"
-                      name="amount"
-                      id="amount"
-                      value={updatedBlog.amount}
-                      onChange={updateBlog}
-                      placeholder="Edit Blog amount"
-                    />
-                    <input
-                      type="text"
-                      name="category"
-                      id="category"
-                      onChange={updateBlog}
-                      value={updatedBlog.category}
-                      placeholder="Edit Blog category"
-                    />
-                    <button onClick={(event) => updateBlogList(event, props.index)}>
-                      Save edit
-                    </button>
-                    <button onClick={cancelEdit}>Cancel edit</button>
-                  </form>
-                );
-              }}
-              className="edit__blog"
-            >
-              Edit Post
-            </button>
-            <button
-              onClick={() => {
                 deleteBlog(props.index);
-                              props.closeModal();
-                              
-
+                props.closeModal();
               }}
               className="delete__blog"
             >

@@ -64,7 +64,7 @@ main{
   cursor: pointer;
   flex: 2;
 }
-.text .time{
+.blog__item .time{
   display: flex;
   align-items: center;
   flex-wrap: wrap;
